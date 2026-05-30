@@ -1,0 +1,11 @@
+body{
+    background:#2f4f6f;
+    color:white;
+    font-family:Arial;
+}
+
+.window{
+    width:90%;
+    margin:auto;
+    padding:20px;
+}

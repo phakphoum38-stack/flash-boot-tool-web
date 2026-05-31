@@ -1,16 +1,37 @@
+from fastapi import APIRouter
 from fastapi import UploadFile
-import shutil
 import os
+import shutil
 
-@app.post("/upload")
-async def upload_iso(file: UploadFile):
+router = APIRouter()
 
-    os.makedirs("uploads", exist_ok=True)
+UPLOAD_DIR = "uploads"
 
-    save_path = f"uploads/{file.filename}"
+os.makedirs(
+    UPLOAD_DIR,
+    exist_ok=True
+)
 
-    with open(save_path, "wb") as buffer:
-        shutil.copyfileobj(file.file, buffer)
+@router.post("/upload")
+
+async def upload_iso(
+    file: UploadFile
+):
+
+    filepath = os.path.join(
+        UPLOAD_DIR,
+        file.filename
+    )
+
+    with open(
+        filepath,
+        "wb"
+    ) as buffer:
+
+        shutil.copyfileobj(
+            file.file,
+            buffer
+        )
 
     return {
         "success": True,

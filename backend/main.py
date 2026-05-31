@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from routes.upload import router as upload_router
 
 app = FastAPI(title="Flash Boot Tool API")
 
@@ -11,18 +12,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(upload_router)
+
 @app.get("/")
 def root():
     return {
         "name": "Flash Boot Tool",
-        "status": "running"
+        "version": "4.0"
     }
-
-@app.get("/usb")
-def usb():
-    return [
-        {
-            "name": "USB Drive",
-            "size": "32GB"
-        }
-    ]
